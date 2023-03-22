@@ -1,0 +1,12 @@
+### proper request with uuid
+GET http://localhost:3000/e3b3f1de-d33b-4869-971d-4cb4f867c9c9
+
+### not working because of validation
+GET http://localhost:3000/1
+
+### endpoint with custom pipe that allows only use Janusz as a name
+GET http://localhost:3000/by-name/Janusz
+
+### not working because only Janusz is allowed
+GEt http://localhost:3000/by-name/arek
+
