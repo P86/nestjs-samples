@@ -1,0 +1,7 @@
+GET http://localhost:3000/teapot
+
+###
+GET http://localhost:3000/payload
+
+### 
+GET http://localhost:3000/custom
