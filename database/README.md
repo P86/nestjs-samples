@@ -2,7 +2,4 @@
 
 ### Prerequisites
 
-Run postgres database using compose from infrastructure project
-```cmd
-docker-compose -f .\infrastructure.yaml up postgres
-```
+- Run postgres database from compose file

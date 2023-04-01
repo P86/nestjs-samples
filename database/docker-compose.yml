@@ -1,0 +1,11 @@
+version: '3.4'
+
+services:
+  postgres:
+    image: postgres
+    environment:
+      POSTGRES_USER: default
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: default
+    ports: 
+      - 5432:5432
