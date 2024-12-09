@@ -8,6 +8,36 @@ import { AuthModule } from './auth/auth.module';
 import { KnexModule } from 'nest-knexjs';
 import * as path from 'path';
 
+function convertToCamelStr(str: string) {
+  return str
+    .toLowerCase()
+    .replace(/([-_][a-z])/g, (ltr) => ltr.toUpperCase())
+    .replace(/[^a-zA-Z]/g, '')
+}
+
+function convertToCamel(obj: Object) {
+  if (!obj) {
+    return obj;
+  }
+
+  Object.keys(obj)?.forEach((key) => {
+    if (typeof obj[key] === "object") {
+      convertToCamel(obj[key]);
+    }
+
+    //todo: handle arrays
+
+    const value = obj[key];
+    delete obj[key];
+    obj[convertToCamelStr(key)] = value;
+  });
+  return obj;
+}
+
+function convertCamelToSnake(str) {
+  return str.replace(/([a-zA-Z])(?=[A-Z])/g, '$1_').toLowerCase()
+}
+
 @Module({
   imports: [
     UsersModule,
@@ -27,16 +57,17 @@ import * as path from 'path';
         migrations: {
           tableName: 'knex_migrations',
           directory: path.join(__dirname, '../migrations'),
-        }
-        // postProcessResponse: (result, queryContext) => {
-        //   // TODO: add special case for raw results
-        //   if (Array.isArray(result)) {
-        //     return result.map((row) => convertToCamel(row));
-        //   } else {
-        //     return convertToCamel(result);
-        //   }
-        // },
-        //rapIdentifier: //todo convert to snake
+        },
+        postProcessResponse: (result, queryContext) => {
+          // TODO: add special case for raw results
+          if (Array.isArray(result)) {
+            return result.map((row) => convertToCamel(row));
+          } else {
+            return convertToCamel(result);
+          }
+        },
+        wrapIdentifier: (value, origImpl, queryContext) =>
+          origImpl(convertCamelToSnake(value)),
       },
     }),],
   controllers: [AppController],

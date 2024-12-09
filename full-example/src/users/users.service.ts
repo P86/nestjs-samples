@@ -14,15 +14,14 @@ export class UsersService {
     const user = new User(dto);
     await user.encryptPassword();
 
-    this.users.push(user);
+    //this.users.push(user);
+    await this.repository.add(user);
 
     return user.id;
   }
 
   public async findAll(): Promise<User[]> {
     return this.repository.findAll();
-
-    //return this.users;
   }
 
   public findOne(id: string): User {
