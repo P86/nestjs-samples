@@ -14,7 +14,6 @@ export class UsersService {
     const user = new User(dto);
     await user.encryptPassword();
 
-    //this.users.push(user);
     await this.repository.add(user);
 
     return user.id;
@@ -24,28 +23,27 @@ export class UsersService {
     return this.repository.findAll();
   }
 
-  public findOne(id: string): User {
-    return this.users.find((u) => u.id === id);
+  public async findOne(id: string): Promise<User> {
+    return this.repository.findOne({ id: id });
   }
 
-  public findOneByEmail(email: string): User {
-    return this.users.find((u) => u.email === email);
+  public async findOneByEmail(email: string): Promise<User> {
+    return this.repository.findOne({ email: email });
   }
 
-  public update(id: string, dto: UpdateUserDto): User {
-    const user = this.findOne(id);
+  public async update(id: string, dto: UpdateUserDto): Promise<User> {
+    const user = await this.findOne(id);
     if (!user) {
       return;
     }
 
     user.update(dto);
+
+    await this.repository.update(id, user);
     return user;
   }
 
-  public remove(id: string) {
-    const inndex = this.users.findIndex(u => u.id === id);
-    if (inndex > 0) {
-      this.users.splice(inndex, 1);
-    }
+  public async remove(id: string): Promise<void> {
+    await this.repository.delete(id);
   }
 }

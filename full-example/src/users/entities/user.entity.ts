@@ -12,7 +12,7 @@ export class User {
 
     firstName: string;
 
-    lastName: string
+    lastName: string;
 
     @Expose()
     get fullName(): string {

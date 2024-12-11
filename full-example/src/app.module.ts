@@ -59,7 +59,11 @@ function convertCamelToSnake(str) {
           directory: path.join(__dirname, '../migrations'),
         },
         postProcessResponse: (result, queryContext) => {
-          // TODO: add special case for raw results
+          // handle special case of raw results
+          if (!result || result.hasOwnProperty('RowCtor')) {
+            return result;
+          }
+
           if (Array.isArray(result)) {
             return result.map((row) => convertToCamel(row));
           } else {

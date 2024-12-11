@@ -16,7 +16,7 @@ export class NotFoundInterceptor implements NestInterceptor {
 
         return next.handle().pipe(
             tap((data) => {
-                if (['GET', 'POST', 'PUT', 'PATH'].includes(request.method) && (data === null || data === undefined)) {
+                if (['GET', 'POST', 'PUT', 'PATCH'].includes(request.method) && (data === null || data === undefined)) {
                     response.status(404).json({
                         statusCode: 404,
                         message: 'Resource not found',
