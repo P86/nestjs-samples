@@ -27,11 +27,12 @@ export class User {
 
     public update(user: Partial<User>): void {
         // not editable
-        delete user.id;
-        delete user.email;
-        delete user.password;
+        const changes = structuredClone(user);
+        delete changes.id;
+        delete changes.email;
+        delete changes.password;
 
-        Object.assign(this, user);
+        Object.assign(this, changes);
     }
 
     public async encryptPassword(): Promise<void> {

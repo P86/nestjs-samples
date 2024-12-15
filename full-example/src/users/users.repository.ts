@@ -22,8 +22,8 @@ export class UsersRepository {
         await this.knex.table('users').insert(user);
     }
 
-    public async update(id: string, user: User): Promise<void> {
-        await this.knex.table('users').update(user).where({ id: id });
+    public async save(user: User): Promise<void> {
+        await this.knex.table('users').update(user).where({ id: user.id });
     }
 
     public async delete(id: string): Promise<void> {
