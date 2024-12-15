@@ -5,10 +5,8 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
 import { UsersRepository } from './users.repository';
 
-// apply transformation to response object
-@UseInterceptors(ClassSerializerInterceptor)
-// set type for plain objects
-@SerializeOptions({ type: User })
+@UseInterceptors(ClassSerializerInterceptor) // apply transformation to response object
+@SerializeOptions({ type: User }) // set type for plain objects
 @Controller('users')
 export class UsersController {
   constructor(
