@@ -5,6 +5,8 @@ This application is template for NestJS full stack application. Template include
 Prerqusites:
 - knex.js (installed globally)
 - nestjs/cli (installed globally)
+- .env file with database password `DB_PASSWORD=...` (others settings are optinoal, see: configuration.ts)
+
 
 Todo:
 - proper authentication and JWT token generation (https://github.com/nestjs/nest/blob/master/sample/19-auth-jwt/src/auth/auth.module.ts)
