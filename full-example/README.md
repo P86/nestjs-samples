@@ -6,12 +6,11 @@ Prerqusites:
 - knex.js (installed globally)
 - nestjs/cli (installed globally)
 - .env file with database password `DB_PASSWORD=...` (others settings are optinoal, see: configuration.ts)
-
+- .env file with JWT secret `JWT_SECRET=...` (others settings are optinoal, see: configuration.ts)
 
 Todo:
-- proper authentication and JWT token generation (https://github.com/nestjs/nest/blob/master/sample/19-auth-jwt/src/auth/auth.module.ts)
 - use Open API (https://docs.nestjs.com/openapi/introduction)
-- add react, frontend sample
-- add monorepo support (Turbo.js, and share dto code between bakcend and frontend)
 - sample of unit tests
 - sample of e2e tests
+- add monorepo support (Turbo.js, and share dto code between bakcend and frontend)
+- add react, frontend sample

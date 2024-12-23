@@ -7,7 +7,7 @@ export class User {
 
     email: string;
 
-    @Exclude()
+    @Exclude({ toPlainOnly: true })
     password: string;
 
     firstName: string;

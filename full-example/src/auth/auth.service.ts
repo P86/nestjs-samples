@@ -1,20 +1,24 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { UsersService } from 'src/users/users.service';
 import { LoginDto } from './dto/login.dto';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class AuthService {
-    constructor(private readonly usersService: UsersService) { }
+    constructor(private readonly usersService: UsersService, private readonly jwtService: JwtService) { }
 
     //todo: implement proper login and token generation
     // https://github.com/nestjs/nest/blob/master/sample/19-auth-jwt/src/auth/auth.module.ts
-    public async login(dto: LoginDto): Promise<boolean> {
+    public async login(dto: LoginDto) {
         const user = await this.usersService.findOneByEmail(dto.email);
         const ok = user && await user.verifyPassword(dto.password);
         if (!ok) {
             throw new UnauthorizedException();
         }
 
-        return true;
+        const payload = { username: user.email, sub: user.id };
+        return {
+            access_token: await this.jwtService.signAsync(payload),
+        };
     }
 }
