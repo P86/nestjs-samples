@@ -1,6 +1,5 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
 import { APP_INTERCEPTOR } from '@nestjs/core';
 import { NotFoundInterceptor } from './common/not-found.interceptor';
@@ -20,7 +19,7 @@ import configuration from './config/configuration';
     })
   ],
   controllers: [AppController],
-  providers: [AppService,
+  providers: [
     {
       provide: APP_INTERCEPTOR,
       useClass: NotFoundInterceptor,

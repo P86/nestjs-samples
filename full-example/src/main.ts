@@ -1,15 +1,26 @@
 import { NestFactory, Reflector } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { ValidationPipe } from '@nestjs/common';
+import { ValidationPipe, VersioningType } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
+  app.enableVersioning({ type: VersioningType.URI })
+
   app.useGlobalPipes(new ValidationPipe());
 
-  const configService = app.get<ConfigService>(ConfigService);
+  const config = new DocumentBuilder()
+    .setTitle('NestJS template app')
+    .setDescription('Sample API')
+    .setVersion('1.0')
+    .build();
 
+  const documentFactory = () => SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup('api', app, documentFactory);
+
+  const configService = app.get<ConfigService>(ConfigService);
   await app.listen(configService.getOrThrow<number>('port'));
 }
 bootstrap();
