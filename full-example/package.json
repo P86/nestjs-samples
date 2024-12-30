@@ -1,6 +1,9 @@
 {
   "name": "nest-js-full-example",
   "version": "1.0.0",
+  "scripts": {
+    "build": "npm run build --workspaces"
+  },
   "workspaces": [
     "packages/lib",
     "packages/backend",

@@ -9,7 +9,6 @@ Prerqusites:
 - .env file with JWT secret `JWT_SECRET=...` (others settings are optinoal, see: configuration.ts)
 
 Todo:
+- add react, frontend sample
 - sample of unit tests
 - sample of e2e tests
-- add monorepo support (Turbo.js, and share dto code between bakcend and frontend)
-- add react, frontend sample
