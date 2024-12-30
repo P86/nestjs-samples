@@ -2,8 +2,9 @@ import { Exclude, Expose } from "class-transformer";
 import { randomUUID } from 'node:crypto';
 import * as argon2 from "argon2";
 import { ApiProperty } from "@nestjs/swagger";
+import { User } from "@lib/user";
 
-export class User {
+export class UserEntity implements User {
     @ApiProperty()
     id: string;
 
@@ -25,13 +26,13 @@ export class User {
         return `${this.firstName} ${this.lastName}`;
     }
 
-    constructor(user: Partial<User>) {
+    constructor(user: Partial<UserEntity>) {
         Object.assign(this, user);
 
         this.id = this.id ?? randomUUID();
     }
 
-    public update(user: Partial<User>): void {
+    public update(user: Partial<UserEntity>): void {
         // not editable
         const changes = structuredClone(user);
         delete changes.id;

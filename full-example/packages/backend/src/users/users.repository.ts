@@ -1,28 +1,28 @@
 import { Injectable } from "@nestjs/common";
 import { Knex } from "knex";
 import { InjectConnection } from "nest-knexjs";
-import { User } from "./entities/user.entity";
+import { UserEntity } from "./entities/user.entity";
 import { plainToInstance, instanceToInstance } from "class-transformer";
 
 @Injectable()
 export class UsersRepository {
     constructor(@InjectConnection() private readonly knex: Knex) { }
 
-    public async findAll(): Promise<User[]> {
+    public async findAll(): Promise<UserEntity[]> {
         const users = await this.knex.table('users');
-        return users.map(u => plainToInstance(User, u));
+        return users.map(u => plainToInstance(UserEntity, u));
     }
 
-    public async findOne(user: Partial<User>): Promise<User> {
+    public async findOne(user: Partial<UserEntity>): Promise<UserEntity> {
         const result = await this.knex.table('users').where(user).first();
-        return plainToInstance(User, result);
+        return plainToInstance(UserEntity, result);
     }
 
-    public async add(user: User): Promise<void> {
+    public async add(user: UserEntity): Promise<void> {
         await this.knex.table('users').insert(user);
     }
 
-    public async save(user: User): Promise<void> {
+    public async save(user: UserEntity): Promise<void> {
         await this.knex.table('users').update(user).where({ id: user.id });
     }
 

@@ -7,14 +7,12 @@ import {
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { User } from './entities/user.entity';
+import { UserEntity } from './entities/user.entity';
 import { UsersRepository } from './users.repository';
-import { Type } from 'class-transformer';
-
 
 @ApiBearerAuth()
 @UseInterceptors(ClassSerializerInterceptor) // apply transformation to response object
-@SerializeOptions({ type: User }) // set type for plain objects
+@SerializeOptions({ type: UserEntity }) // set type for plain objects
 @Controller({ path: 'users', version: '1' })
 export class UsersController {
   constructor(
@@ -31,7 +29,7 @@ export class UsersController {
 
   @ApiOperation({ summary: 'Returns all users' })
   @ApiResponse({ status: 401, description: 'Unathorized.' })
-  @ApiResponse({ status: 200, type: User, isArray: true })
+  @ApiResponse({ status: 200, type: UserEntity, isArray: true })
   @Get()
   findAll() {
     return this.repository.findAll();
@@ -40,7 +38,7 @@ export class UsersController {
   @ApiOperation({ summary: 'Returns specific user' })
   @ApiResponse({ status: 404, description: 'User with given id was not found' })
   @ApiResponse({ status: 401, description: 'Unathorized.' })
-  @ApiResponse({ status: 200, type: User })
+  @ApiResponse({ status: 200, type: UserEntity })
   @Get(':id')
   findOne(@Param('id', ParseUUIDPipe) id: string) {
     return this.service.findOne(id);
