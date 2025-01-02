@@ -9,8 +9,9 @@ Prerqusites:
 - .env file with JWT secret `JWT_SECRET=...` (others settings are optinoal, see: configuration.ts)
 
 Architecure:
-- Example assumes that projest will be kept in monorepo with frontend aplication
+- Example assumes that projest will be kept in monorepo with frontend aplication (it uses npm workspaces to mantain monorepo)
 - `lib` directory types that will be shared between backend and frontend, it also contains interfaces that are data contracts between backend and frontend.
 
 Todo:
+- add data seed with default user
 - fix tests and add sample
