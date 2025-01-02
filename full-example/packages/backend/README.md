@@ -8,7 +8,9 @@ Prerqusites:
 - .env file with database password `DB_PASSWORD=...` (others settings are optinoal, see: configuration.ts)
 - .env file with JWT secret `JWT_SECRET=...` (others settings are optinoal, see: configuration.ts)
 
+Architecure:
+- Example assumes that projest will be kept in monorepo with frontend aplication
+- `lib` directory types that will be shared between backend and frontend, it also contains interfaces that are data contracts between backend and frontend.
+
 Todo:
-- add react, frontend sample
-- sample of unit tests
-- sample of e2e tests
+- fix tests and add sample
